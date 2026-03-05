@@ -1,0 +1,18 @@
+#Ficheiros a Ignorar na Construção do Contentor:
+
+#Variáveis de Ambiente e Chaves Secretas:
+.env
+
+#Cache e Ficheiros Temporários do Python:
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+
+#Ambientes Virtuais Locais:
+venv/
+env/
+
+#Controlo de Versões e Metadados:
+.git/
+.gitignore
