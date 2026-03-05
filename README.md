@@ -1,3 +1,14 @@
+---
+title: NVIDIA AI Auditor 2025
+emoji: 🔎
+colorFrom: green
+colorTo: gray
+sdk: streamlit
+sdk_version: 1.31.0
+app_file: app.py
+pinned: false
+---
+
 # AI-powered Agentic RAG Auditor: Hybrid Retrieval & MCP Systems Architecture 🔎
 Built an Agentic Hybrid RAG system engineered for high-fidelity auditing of complex financial reports (e.g., NVIDIA Corporation Annual Review 2025). The architecture features a LangGraph-powered self-correction loop to eliminate hallucinations and an MCP-standardized interface for integration with external AI agents and orchestrators. By integrating Hybrid Retrieval (Qdrant Cloud Vector Database + BM25) with autonomous RAGAS evaluation, the system delivers verifiable, audit-ready insights through a production-grade, interoperable framework.
 
