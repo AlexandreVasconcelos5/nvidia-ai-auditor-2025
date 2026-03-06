@@ -115,4 +115,4 @@ graph TD
 ### 📩 Contacts:
 - Name: Alexandre Vasconcelos
 - LinkedIn: https://www.linkedin.com/in/alexandre-vasconcelos-396227167/
-- Email: alex.vasconcelos.2057@gmail.com
+- Email: alex.vasconcelos.2057@gmail.com 
