@@ -1,5 +1,5 @@
 ---
-title: NVIDIA AI Auditor 2025
+title: AGENTIC HYBRID RAG AI AUDITOR 2025
 emoji: 🔎
 colorFrom: green
 colorTo: gray
