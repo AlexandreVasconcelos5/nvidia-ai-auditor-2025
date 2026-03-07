@@ -58,7 +58,7 @@ def execute_agentic_auditor(user_query: str) -> str:
         ensure_resources()
         documents, _ = execute_hybrid_retrieval_and_reranking(
             user_query=user_query,
-            qdrant_vector_store_database=qdrant_cloud_vector_database,
+            qdrant_cloud_vector_database=qdrant_cloud_vector_database,
             flashrank_reranker=flashrank_reranker,
             bm25_index=bm25_index,
             bm25_documents=bm25_documents)
