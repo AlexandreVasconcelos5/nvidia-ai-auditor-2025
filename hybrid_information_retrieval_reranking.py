@@ -3,8 +3,8 @@
 Hybrid Retrieval & Cross-Encoder Re-Ranking Module.
 
 Handles:
-- Qdrant Cloud Vector Database (Dense);
-- BM25 Keyword Search (Sparse);
+- Qdrant Cloud Vector Database;
+- BM25 Keyword Search;
 - Flashrank Re-Ranking."""
 
 # -------------------------------------------------------------------------------
@@ -90,18 +90,18 @@ def log_pipeline_phase_latency(start_time: float, phase_name: str) -> float:
 # -------------------------------------------------------------------------------
 # Hybrid Retrieval & Re-Ranking
 # -------------------------------------------------------------------------------
-def execute_hybrid_retrieval_and_reranking(user_query: str, qdrant_cloud_vector_database, flashrank_reranker, bm25_index, bm25_documents, top_k: int = 15):
+def execute_hybrid_retrieval_and_reranking(user_query: str, qdrant_vector_database, flashrank_reranker, bm25_index, bm25_documents, top_k: int = 15):
     """Performs hybrid retrieval (Qdrant Cloud Vector Database + BM25) and cross-encoder re-ranking."""
 
-    qdrant_cloud_vector_database_retriever = qdrant_cloud_vector_database.as_retriever(search_kwargs={"k": top_k})
-    qdrant_cloud_vector_database_documents = qdrant_cloud_vector_database_retriever.invoke(user_query)
+    qdrant_vector_database_retriever = qdrant_vector_database.as_retriever(search_kwargs={"k": top_k})
+    qdrant_vector_database_documents = qdrant_vector_database_retriever.invoke(user_query)
 
     tokenized_user_query = user_query.lower().split()
     bm25_scores = bm25_index.get_scores(tokenized_user_query)
     top_bm25_indexes = bm25_scores.argsort()[-top_k:][::-1]
     top_bm25_documents = [bm25_documents[index] for index in top_bm25_indexes]
 
-    hybrid_retrieval_documents = list(qdrant_cloud_vector_database_documents)
+    hybrid_retrieval_documents = list(qdrant_vector_database_documents)
     seen_contents = set([document.page_content for document in hybrid_retrieval_documents])
 
     for document in top_bm25_documents:
