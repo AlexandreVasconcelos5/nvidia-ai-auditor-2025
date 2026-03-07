@@ -37,19 +37,16 @@ flashrank_reranker = None
 bm25_index = None
 bm25_documents = None
 
-@mcp.on_startup()
-async def load_resources():
-    """Isolated initialization of the search engines and models on server startup."""
-    
+def ensure_resources():
     global qdrant_cloud_vector_database, flashrank_reranker, bm25_index, bm25_documents
-    logger.info("Loading the Hybrid Retrieval Engine resources...")
-    
-    try:
-        qdrant_cloud_vector_database, flashrank_reranker, bm25_index, bm25_documents = initialize_hybrid_retrieval_engine()
-        logger.info("The MCP Engine is ready and the resources are loaded.")
-    except Exception as exception:
-        logger.error(f"Failed to initialize the Hybrid Retrieval Engine: {exception}")
-        raise exception
+    if qdrant_cloud_vector_database is None:
+        logger.info("Loading the Hybrid Retrieval Engine resources...")
+        try:
+            qdrant_cloud_vector_database, flashrank_reranker, bm25_index, bm25_documents = initialize_hybrid_retrieval_engine()
+            logger.info("The MCP Engine is ready.")
+        except Exception as exception:
+            logger.error(f"Failed to initialize: {exception}")
+            raise exception
 
 # -------------------------------------------------------------------------------
 # MCP Tool: Agentic Financial Auditor
@@ -58,6 +55,7 @@ async def load_resources():
 def execute_agentic_auditor(user_query: str) -> str:
     """Agentic tool to audit NVIDIA's Corporate Annual Review 2025 Report. Handles the information hybrid retrieval, re-ranking and self-correction automatically."""
     try:
+        ensure_resources()
         documents, _ = execute_hybrid_retrieval_and_reranking(
             user_query=user_query,
             qdrant_vector_store_database=qdrant_cloud_vector_database,
